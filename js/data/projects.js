@@ -34,6 +34,19 @@ export const projects = [
     ],
   },
   {
+    title: 'Who We Are',
+    meta: 'Three-person GameMaker team project · Fall 2024',
+    summary:
+      'A GameMaker game in which the player names a tribe, defines its culture, assigns jobs to its ' +
+      'population and resolves dilemmas, built by a team of three.',
+    bullets: [
+      'Added the game’s dilemma content and fixed crash, restart and culture-removal bugs.',
+      'Contributed most of the 120 commits alongside two teammates.',
+    ],
+    tags: ['GameMaker', 'GML', 'Team of three'],
+    links: [{ label: 'Source', href: 'https://github.com/Robbie-DeMars/Who-We-Are' }],
+  },
+  {
     title: 'AdLib Mayhem',
     meta: 'Solo project · Misfits and Machines · Summer 2025',
     summary:
