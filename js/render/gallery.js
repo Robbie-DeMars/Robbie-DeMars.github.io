@@ -2,7 +2,7 @@ import { el } from '../dom.js';
 
 /**
  * Gallery item shape:
- * { src, alt, title?, caption?, width?, height?, fullWidth? }
+ * { src, alt, title?, caption?, width?, height?, fullWidth?, pixelated? }
  */
 function renderFigure(item) {
   const imageAttrs = { src: item.src, alt: item.alt, loading: 'lazy' };
@@ -13,7 +13,8 @@ function renderFigure(item) {
     imageAttrs.height = String(item.height);
   }
 
-  const image = el('img', { className: 'figure__image', attrs: imageAttrs });
+  const imageClass = item.pixelated ? 'figure__image figure__image--pixelated' : 'figure__image';
+  const image = el('img', { className: imageClass, attrs: imageAttrs });
   const children = [el('a', { attrs: { href: item.src } }, [image])];
 
   if (item.title || item.caption) {

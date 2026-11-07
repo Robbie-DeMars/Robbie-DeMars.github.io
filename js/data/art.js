@@ -1,5 +1,10 @@
-// Gallery items. Shape: { src, alt, title?, caption?, width?, height?, fullWidth? }
+// Gallery items. Shape: { src, alt, title?, caption?, width?, height?, fullWidth?, pixelated? }
 // Image files live in assets/art/.
+
+// Shared by both pop token GIFs.
+const TOKEN_NOTE =
+  'GameMaker Studio is a 2D-only engine, so I modeled and animated this coin flip in Maya ' +
+  'and exported a low-resolution recording of the animation.';
 
 export const art = [
   {
@@ -29,5 +34,23 @@ export const art = [
     alt: 'Low-poly 3D model of an elderly man in a plaid shirt holding a green box',
     title: 'Low-poly character.',
     caption: 'Modeled and textured character in a game-ready style.',
+  },
+  {
+    src: 'assets/art/pop-token-sated.gif',
+    alt: 'Low-resolution animation of a coin-flipping pop token: a black keyhole-shaped figure on a green octagon',
+    title: 'Who We Are: sated pop token.',
+    caption: `Coin-flip animation for a sated pop token. ${TOKEN_NOTE}`,
+    width: 256,
+    height: 256,
+    pixelated: true,
+  },
+  {
+    src: 'assets/art/pop-token-unsated.gif',
+    alt: 'Low-resolution animation of a coin-flipping pop token: a black keyhole-shaped figure on a red octagon',
+    title: 'Who We Are: unsated pop token.',
+    caption: `Coin-flip animation for an unsated pop token. ${TOKEN_NOTE}`,
+    width: 256,
+    height: 256,
+    pixelated: true,
   },
 ];

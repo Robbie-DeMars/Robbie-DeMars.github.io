@@ -1,3 +1,4 @@
+import { renderAudio } from './audio.js';
 import { renderCards } from './cards.js';
 import { renderColumns } from './columns.js';
 import { renderGallery } from './gallery.js';
@@ -8,4 +9,5 @@ export const itemRenderers = {
   cards: renderCards,
   gallery: renderGallery,
   columns: renderColumns,
+  audio: renderAudio,
 };

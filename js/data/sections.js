@@ -3,6 +3,7 @@
 
 import { art } from './art.js';
 import { links } from './links.js';
+import { music } from './music.js';
 import { projects } from './projects.js';
 import { skills } from './skills.js';
 
@@ -16,11 +17,18 @@ export const sections = [
   },
   {
     id: 'art',
-    title: '3D Art',
-    subtitle: 'Hand-painted, low-poly game assets modeled in Maya and textured in Substance Painter.',
+    title: 'Art',
+    subtitle: '3D models and animations made in Maya, with textures painted in Substance Painter.',
     type: 'gallery',
     items: art,
     links: [links.artRepo],
+  },
+  {
+    id: 'music',
+    title: 'Music',
+    subtitle: 'Game audio.',
+    type: 'audio',
+    items: music,
   },
   {
     id: 'skills',

@@ -22,6 +22,7 @@ js/
     links.js          External URLs used in more than one place
     projects.js       Items for the "cards" layout
     art.js            Items for the "gallery" layout
+    music.js          Items for the "audio" layout
     skills.js         Items for the "columns" layout
     sections.js       Ordered list of page sections
   render/             Generic renderers. No content
@@ -34,7 +35,9 @@ js/
     cards.js          "cards" layout
     gallery.js        "gallery" layout
     columns.js        "columns" layout
-assets/art/           Web-sized images used by js/data/art.js
+    audio.js          "audio" layout
+assets/art/           Web-sized images and GIFs used by js/data/art.js
+assets/audio/         MP3 files used by js/data/music.js
 ```
 
 ## How rendering works
@@ -53,6 +56,7 @@ Data and rendering do not import each other except through `main.js` and `sectio
 | --- | --- |
 | Add or edit a project | `js/data/projects.js` |
 | Add an image | Put the file in `assets/art/`, then add an entry to `js/data/art.js` |
+| Add an audio track | Put the MP3 in `assets/audio/`, then add an entry to `js/data/music.js` |
 | Add or edit a skill group | `js/data/skills.js` |
 | Add a section | Add an entry to `js/data/sections.js` |
 | Reorder sections | Reorder `js/data/sections.js` |
@@ -67,7 +71,9 @@ Data and rendering do not import each other except through `main.js` and `sectio
 section : { id, title, subtitle?, type?, items?, links? }
 link    : { label, href, primary? }
 card    : { title, meta?, summary?, bullets?, tags?, links? }          type: "cards"
-figure  : { src, alt, title?, caption?, width?, height?, fullWidth? }  type: "gallery"
+figure  : { src, alt, title?, caption?, width?, height?,
+            fullWidth?, pixelated? }                                   type: "gallery"
+track   : { src, title, caption? }                                     type: "audio"
 column  : { title, text }                                              type: "columns"
 hero    : { heading, lead?, actions? }
 ```

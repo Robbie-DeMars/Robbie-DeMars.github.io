@@ -58,9 +58,12 @@ through `js/render/registry.js`. The navigation is generated from the same list.
 ### Assets
 
 - Put web-ready images in `assets/art/`. Resize to 1800 px wide or less and keep each file under about 500 KB.
-- Do not copy source files here (`.psd`, `.spp`, `.mb`, `.ma`, `.fbx`). They belong in the `Art-Portfolio`
-  repository.
+- Put web-ready audio in `assets/audio/` as MP3 at about 128 kbps. Do not add `.wav` files.
+- Do not copy source files here (`.psd`, `.spp`, `.mb`, `.ma`, `.fbx`, `.wav`). They belong in the
+  `Art-Portfolio` repository.
 - Every image needs meaningful `alt` text in `js/data/art.js`.
+- Set `pixelated: true` on low-resolution images (pixel art, small renders) so they scale without blurring.
+- Audio uses `preload="none"`. Do not autoplay.
 
 ### Accessibility and layout
 

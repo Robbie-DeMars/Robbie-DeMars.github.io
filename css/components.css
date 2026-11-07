@@ -107,6 +107,10 @@
   background: #555;
 }
 
+.figure__image--pixelated {
+  image-rendering: pixelated;
+}
+
 .figure__caption {
   padding: var(--space-3) var(--space-4);
   color: var(--color-muted);
@@ -115,6 +119,31 @@
 
 .figure__title {
   color: var(--color-text);
+}
+
+/* Track */
+
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.track__title {
+  font-size: 1rem;
+}
+
+.track__caption {
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+
+.track__player {
+  width: 100%;
 }
 
 /* Column */
