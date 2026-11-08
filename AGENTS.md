@@ -5,7 +5,11 @@ Instructions for AI coding agents working in this repository. For the human-faci
 ## Project
 
 Static portfolio site on GitHub Pages. Plain HTML, CSS and ES modules. No build step, no framework,
-no package manager, no dependencies. Do not add any of these.
+no package manager. Do not add any of these.
+
+The only third-party code is `vendor/three/`, an unmodified copy of three.js used by the 3D viewer.
+Do not edit files in `vendor/`. Do not load libraries from a CDN. Do not add other dependencies without the
+owner's approval.
 
 ## Architecture
 
@@ -13,12 +17,13 @@ Content and rendering are separate.
 
 - `js/data/` holds content only: strings, arrays and objects. No DOM calls, no markup, no logic.
 - `js/render/` holds generic renderers. No page content and no URLs.
-- `js/main.js` is the only entry point.
-- `index.html` is a shell with empty containers. Do not put page content in it.
+- `js/viewer/` holds the three.js scene. It is imported only by `js/render/models.js`, on demand.
+- `js/main.js` is the only entry point. It chooses a page from `<body data-page>`.
+- Each HTML file (`index.html`, `art.html`) is a shell with empty containers. Do not put page content in it.
 - `css/` is split by responsibility: `tokens.css`, `base.css`, `layout.css`, `components.css`.
 
-Page sections are defined by `js/data/sections.js`. Each section has a `type` that selects a renderer
-through `js/render/registry.js`. The navigation is generated from the same list.
+Pages and their sections are defined in `js/data/pages.js`. Each section has a `type` that selects a renderer
+through `js/render/registry.js`. Site navigation is `nav` in `js/data/site.js`.
 
 ## Rules
 
@@ -29,12 +34,14 @@ through `js/render/registry.js`. The navigation is generated from the same list.
   existing renderer.
 - Do not repeat style values. Colors, spacing, fonts and radii come from `css/tokens.css`.
 - Do not add a one-off style for one element. Add a reusable class to `css/components.css` or `css/layout.css`.
+- The head block is repeated in each HTML shell. Keep the shells identical except for `title`, `description`,
+  Open Graph tags, `data-page` and the import map on pages that use three.js.
 
 ### Keep it generic
 
-- Renderers must not reference a specific project, image or person.
+- Renderers must not reference a specific project, image, model or person.
 - A new layout is a new file in `js/render/` plus one line in `registry.js`. Do not add `if` branches by
-  section id.
+  section id or page name.
 - Data shapes are documented in `README.md`. Update that table in the same change if you add or rename a field.
 
 ### Code style
@@ -45,7 +52,7 @@ through `js/render/registry.js`. The navigation is generated from the same list.
 - One responsibility per file. Keep files short. Split a file when it handles two concerns.
 - CSS class names follow `block__element--modifier`.
 - JSDoc a function when its argument shape is not obvious.
-- Fail loudly on bad data: throw an `Error` that names the offending section or field.
+- Fail loudly on bad data: throw an `Error` that names the offending section, page or field.
 
 ### Content
 
@@ -54,12 +61,16 @@ through `js/render/registry.js`. The navigation is generated from the same list.
 - Do not add an email address, phone number or street address.
 - Do not link or publish the resume PDF. It contains personal contact details.
 - Credit third-party work next to the work it applies to. The sword concept art is by Jessica Geis.
+- Do not publish code or history from repositories the owner does not control, such as company repositories.
 
 ### Assets
 
 - Put web-ready images in `assets/art/`. Resize to 1800 px wide or less and keep each file under about 500 KB.
 - Put web-ready audio in `assets/audio/` as MP3 at about 128 kbps. Do not add `.wav` files.
-- Do not copy source files here (`.psd`, `.spp`, `.mb`, `.ma`, `.fbx`, `.wav`). They belong in the
+- Put 3D models in `assets/models/<group>/` as binary `.fbx` files under about 1 MB. Name files in kebab-case.
+  Put textures an FBX refers to in the same folder, under the exact file name the FBX stores, resized to
+  1024 px or less.
+- Do not copy source files here (`.psd`, `.spp`, `.mb`, `.ma`, `.blend`, `.wav`). They belong in the
   `Art-Portfolio` repository.
 - Every image needs meaningful `alt` text in `js/data/art.js`.
 - Set `pixelated: true` on low-resolution images (pixel art, small renders) so they scale without blurring.
@@ -69,20 +80,24 @@ through `js/render/registry.js`. The navigation is generated from the same list.
 
 - Keep a visible focus style, a color contrast that passes in both color schemes, and a layout that works at
   360 px width with no horizontal scroll.
-- Do not rely on JavaScript for essential links. `index.html` keeps a `<noscript>` fallback.
+- Controls must be real `<button>` or `<a>` elements.
+- Respect `prefers-reduced-motion`: the viewer does not auto-rotate when it is set.
+- Do not rely on JavaScript for essential links. Each HTML shell keeps a `<noscript>` fallback.
 
 ## Verification
 
 Before finishing a change:
 
-1. Serve the folder with `python -m http.server 8000` and open the page. ES modules do not run from `file://`.
-2. Check the browser console for errors.
-3. Check each section renders and each nav link scrolls to its section.
-4. Check the page at about 360 px and at desktop width.
-5. If a data shape changed, check that `README.md` matches.
+1. Serve the folder with `python -m http.server 8000`. ES modules and the import map do not run from `file://`.
+2. Open `index.html` and `art.html`. Check the browser console for errors.
+3. Check each section renders and each nav link goes to the right place.
+4. On `art.html`, check that the first model loads and that selecting another model replaces it.
+5. Check each page at about 360 px and at desktop width.
+6. If a data shape changed, check that `README.md` matches.
 
 ## Version control
 
 - Do not commit or push unless the owner asks. The repository is pushed through GitHub Desktop under the
   `Robbie-DeMars` account.
 - Do not rewrite history or force-push.
+- Do not add Claude or other AI attribution lines (such as `Co-Authored-By`) to commits or pull requests.

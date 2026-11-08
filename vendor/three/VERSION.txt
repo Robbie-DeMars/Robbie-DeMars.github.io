@@ -1,0 +1,4 @@
+three 0.186.1
+Source: https://www.npmjs.com/package/three/v/0.186.1 (npm pack three@0.186.1)
+Files copied unmodified: build/three.module.js, build/three.core.js, LICENSE,
+examples/jsm/{loaders/FBXLoader.js, controls/OrbitControls.js, curves/NURBSCurve.js, curves/NURBSUtils.js, libs/fflate.module.js}

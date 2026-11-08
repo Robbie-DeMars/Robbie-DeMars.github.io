@@ -1,31 +1,35 @@
-import { sections } from './data/sections.js';
+import { pages } from './data/pages.js';
 import { site } from './data/site.js';
 import { renderFooter } from './render/footer.js';
 import { renderHeader } from './render/header.js';
 import { renderHero } from './render/hero.js';
 import { renderSection } from './render/section.js';
 
-function mount(id, node) {
-  const container = document.getElementById(id);
-  if (!container) {
-    throw new Error(`Missing #${id} in index.html`);
+function getElement(id) {
+  const element = document.getElementById(id);
+  if (!element) {
+    throw new Error(`Missing #${id} in the HTML file`);
   }
-  container.replaceChildren(node);
+  return element;
 }
 
-function renderPage() {
-  mount('site-header', renderHeader(site, sections));
-  mount('site-footer', renderFooter(site));
+function renderPage(page) {
+  getElement('site-header').replaceChildren(renderHeader(site));
+  getElement('site-footer').replaceChildren(renderFooter(site));
 
-  const content = document.getElementById('content');
-  if (!content) {
-    throw new Error('Missing #content in index.html');
+  const nodes = [];
+  if (page.hero) {
+    nodes.push(renderHero(page.hero));
   }
-  const nodes = [renderHero(site.hero)];
-  for (const section of sections) {
+  for (const section of page.sections) {
     nodes.push(renderSection(section));
   }
-  content.replaceChildren(...nodes);
+  getElement('content').replaceChildren(...nodes);
 }
 
-renderPage();
+const pageName = document.body.dataset.page;
+const page = pages[pageName];
+if (!page) {
+  throw new Error(`Unknown page "${pageName}". Add it to js/data/pages.js.`);
+}
+renderPage(page);
